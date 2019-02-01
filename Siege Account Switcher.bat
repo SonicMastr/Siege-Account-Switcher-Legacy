@@ -2,12 +2,23 @@
 ECHO Siege Steam/Uplay Account Switcher
 ECHO By SonicMastr
 timeout /t 2 >NUL
-tasklist /FI "IMAGENAME eq upc.exe" | find /I "upc.exe" >NUL
-IF ERRORLEVEL 1 GOTO MESSAGE
-GOTO CUPLAY
-:MESSAGE
+tasklist /FI "IMAGENAME eq RainbowSix.exe" | find /I "RainbowSix.exe" >NUL
+IF ERRORLEVEL 1 GOTO NOSIEGE
+GOTO CSIEGE
+
+:NOSIEGE
 ECHO.
-ECHO Uplay not running. Continue...
+ECHO Siege is not running. Continue...
+
+:CHECKU
+tasklist /FI "IMAGENAME eq upc.exe" | find /I "upc.exe" >NUL
+IF ERRORLEVEL 1 GOTO NOUPLAY
+GOTO CUPLAY
+
+:NOUPLAY
+ECHO.
+ECHO Uplay is not running. Continue...
+
 :CHOICE
 ECHO.
 ECHO Which Account do you want to use?
@@ -26,6 +37,12 @@ ECHO.
 taskkill /F /IM upc.exe >NUL
 ECHO successfully shutdown Uplay. Continue...
 GOTO CHOICE
+
+:CSIEGE
+ECHO.
+taskkill /F /IM RainbowSix.exe >NUL
+ECHO successfully shutdown Siege. Continue...
+GOTO CHECKU
 
 :UPLAY
 ECHO.
